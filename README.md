@@ -14,7 +14,7 @@ The SynthRAD dataset includes brain images of 180 patients, comprising aligned M
 We used the MRI and CT scans for the MRI-to-CT synthesis task. 
 
 All images are normalized by clipping the intensity values to the range between the 0.5th and 99.5th percentiles, followed by rescaling to the range of [0,1].
-To meet the input requirements of SAM, 3D images are split into 2D slices and resized to 512$\times$512, and the channels are repeated three times for input consistency.
+To meet the input requirements of SAM, 3D images are split into 2D slices and resized to 512 $\times$ 512, and the channels are repeated three times for input consistency.
 
 ```
 cd DM-SAM/preprocess
