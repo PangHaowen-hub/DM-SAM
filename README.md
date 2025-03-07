@@ -1,7 +1,7 @@
 # Cascaded Diffusion Model and Segment Anything Model for Medical Image Synthesis via Uncertainty-Guided Prompt Generation
 
 ## 1. Overview
-<img src="./images/overview.jpg" width="500px"></img>
+<img src="./images/overview.jpg" width="1000px"></img>
 
 Fig.1: An overview of our method. Our method cascades the DM with SAM, where the uncertainty of DM output serves as the prompt for SAM. The UGCA module allows interaction between the prompt, source image, and DM output for the final synthesis.
 
@@ -14,7 +14,7 @@ The SynthRAD dataset includes brain images of 180 patients, comprising aligned M
 We used the MRI and CT scans for the MRI-to-CT synthesis task. 
 
 All images are normalized by clipping the intensity values to the range between the 0.5th and 99.5th percentiles, followed by rescaling to the range of [0,1].
-To meet the input requirements of SAM, 3D images are split into 2D slices and resized to $512\times512$, and the channels are repeated three times for input consistency.
+To meet the input requirements of SAM, 3D images are split into 2D slices and resized to 512$\times$512, and the channels are repeated three times for input consistency.
 
 ```
 cd DM-SAM/preprocess
@@ -24,3 +24,10 @@ python split.py
 
 ## 3. Usage
 
+```
+cd DM-SAM
+python DM_train.py
+python DM_repeated_sampling.py
+python SAM_train.py
+python DM_SAM_test.py
+```
