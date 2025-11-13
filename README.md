@@ -1,4 +1,4 @@
-# 🧠 DM-SAM: Cascaded Diffusion Model and Segment Anything Model for Medical Image Synthesis
+# DM-SAM: Cascaded Diffusion Model and Segment Anything Model for Medical Image Synthesis
 
 > Official PyTorch implementation of the paper  
 > **"Cascaded Diffusion Model and Segment Anything Model for Medical Image Synthesis via Uncertainty-Guided Prompt Generation and Multi-Level Prompt Interaction"**  
@@ -43,7 +43,7 @@ Experiments in this paper were conducted on three publicly available datasets:
 
 ---
 
-## 🧠 Usage
+## 💻 Usage
 
 ### 1️⃣ Data preprocessing
 
