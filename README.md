@@ -17,14 +17,6 @@ The key idea is to leverage the **uncertainty** of diffusion model outputs as **
 
 ---
 
-## ✨ Key Highlights
-- 🔍 **First exploration** of whether segmentation foundation model can be applied to image synthesis.  
-- 🧩 **Cascaded architecture** combining the DM and SAM for improved synthesis.  
-- ⚡ **Uncertainty-guided prompting** to refine synthesis.  
-- 🧠 **Multi-level prompt interaction** via UGCA and Multi-UGCA modules for fine-grained feature fusion.
-
----
-
 ## 🧰 Installation
 
 ### 1️⃣ Create and activate the environment
