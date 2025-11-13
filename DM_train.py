@@ -1,0 +1,51 @@
+import os
+import logging
+import time
+from DM.denoising_diffusion_pytorch import Unet, GaussianDiffusion, Trainer
+
+
+if __name__ == '__main__':
+    now_time = time.strftime('%Y-%m-%d-%H-%M-%S')
+    now_time_path = os.path.join('experiments', now_time)
+    os.makedirs(now_time_path, exist_ok=True)
+    logger = logging.getLogger()
+    logfile = '{}.log'.format(now_time)
+    logfile = os.path.join(now_time_path, logfile)
+    FORMAT = '%(levelname)s %(filename)s(%(lineno)d): %(message)s'
+    log_level = logging.INFO
+    logging.basicConfig(level=log_level, format=FORMAT, filename=logfile)
+    logging.root.addHandler(logging.StreamHandler())
+
+    model = Unet(
+        channels=1,
+        dim=64,
+        dim_mults=(1, 2, 4, 8),
+        flash_attn=True,
+        self_condition=True,
+    )
+
+    diffusion = GaussianDiffusion(
+        model,
+        image_size=224,
+        timesteps=1000,
+        sampling_timesteps=10,
+        objective='pred_v',
+    )
+
+    trainer = Trainer(
+        diffusion,
+        r'./dataset/BraTS2023-TrainingData_png_t1n',
+        r'./dataset/BraTS2023-TrainingData_png_t2f',
+        train_batch_size=16,
+        train_lr=8e-5,
+        train_num_steps=500000,
+        save_and_sample_every=10000,
+        num_samples=16,
+        gradient_accumulate_every=1,  # gradient accumulation steps
+        ema_decay=0.995,  # exponential moving average decay
+        amp=True,  # turn on mixed precision
+        calculate_fid=False,  # whether to calculate fid during training
+        augment_horizontal_flip=False,
+        results_folder=os.path.join(now_time_path, 'results'),
+    )
+    trainer.train()
