@@ -16,17 +16,11 @@ if __name__ == '__main__':
     logging.basicConfig(level=log_level, format=FORMAT, filename=logfile)
     logging.root.addHandler(logging.StreamHandler())
 
-    model = Unet(
-        channels=1,
-        dim=64,
-        dim_mults=(1, 2, 4, 8),
-        flash_attn=True,
-        self_condition=True,
-    )
+    model = Unet(channels=1)
 
     diffusion = GaussianDiffusion(
         model,
-        image_size=224,
+        image_size=512,
         timesteps=1000,
         sampling_timesteps=10,
         objective='pred_v',
@@ -34,11 +28,11 @@ if __name__ == '__main__':
 
     trainer = Trainer(
         diffusion,
-        r'./dataset/BraTS2023-TrainingData_png_t1n',
-        r'./dataset/BraTS2023-TrainingData_png_t2f',
+        source_modality='T1N',
+        target_modality='T2W',
         train_batch_size=16,
         train_lr=8e-5,
-        train_num_steps=500000,
+        train_num_steps=200000,
         save_and_sample_every=10000,
         num_samples=16,
         gradient_accumulate_every=1,  # gradient accumulation steps
