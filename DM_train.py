@@ -16,7 +16,7 @@ if __name__ == '__main__':
     logging.basicConfig(level=log_level, format=FORMAT, filename=logfile)
     logging.root.addHandler(logging.StreamHandler())
 
-    model = Unet(channels=1)
+    model = Unet(channels=3)
 
     diffusion = GaussianDiffusion(
         model,
