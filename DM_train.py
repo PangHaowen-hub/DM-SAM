@@ -16,7 +16,7 @@ if __name__ == '__main__':
     logging.basicConfig(level=log_level, format=FORMAT, filename=logfile)
     logging.root.addHandler(logging.StreamHandler())
 
-    model = Unet(channels=3)
+    model = Unet(channels=4)
 
     diffusion = GaussianDiffusion(
         model,
@@ -28,6 +28,7 @@ if __name__ == '__main__':
 
     trainer = Trainer(
         diffusion,
+        data_path='data_npz',
         source_modality='T1N',
         target_modality='T2W',
         train_batch_size=16,
@@ -39,7 +40,6 @@ if __name__ == '__main__':
         ema_decay=0.995,  # exponential moving average decay
         amp=True,  # turn on mixed precision
         calculate_fid=False,  # whether to calculate fid during training
-        augment_horizontal_flip=False,
         results_folder=os.path.join(now_time_path, 'results'),
     )
     trainer.train()

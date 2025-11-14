@@ -62,12 +62,12 @@ class Attend(nn.Module):
 
         device_version = version.parse(f'{device_properties.major}.{device_properties.minor}')
 
-        if device_version > version.parse('8.0'):
-            print_once('A100 GPU detected, using flash attention if input tensor is on cuda')
-            self.cuda_config = AttentionConfig(True, False, False)
-        else:
+        # if device_version > version.parse('8.0'):
+        #     print_once('A100 GPU detected, using flash attention if input tensor is on cuda')
+        #     self.cuda_config = AttentionConfig(True, False, False)
+        # else:
         # print_once('Non-A100 GPU detected, using math or mem efficient attention if input tensor is on cuda')
-            self.cuda_config = AttentionConfig(False, True, True)
+        self.cuda_config = AttentionConfig(False, True, True)
 
     def flash_attn(self, q, k, v):
         _, heads, q_len, _, k_len, is_cuda, device = *q.shape, k.shape[-2], q.is_cuda, q.device
