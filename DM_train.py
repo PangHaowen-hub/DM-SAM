@@ -31,15 +31,12 @@ if __name__ == '__main__':
         data_path='data_npz',
         source_modality='T1N',
         target_modality='T2W',
-        train_batch_size=16,
+        train_batch_size=1,
+        gradient_accumulate_every=1,  # gradient accumulation steps
         train_lr=8e-5,
         train_num_steps=200000,
-        save_and_sample_every=10000,
-        num_samples=16,
-        gradient_accumulate_every=1,  # gradient accumulation steps
-        ema_decay=0.995,  # exponential moving average decay
-        amp=True,  # turn on mixed precision
-        calculate_fid=False,  # whether to calculate fid during training
+        save_and_sample_every=10,
+        num_samples=1,
         results_folder=os.path.join(now_time_path, 'results'),
     )
     trainer.train()

@@ -1,3 +1,5 @@
 *.nii.gz
 *.npy
 experiments
+data
+data_npz

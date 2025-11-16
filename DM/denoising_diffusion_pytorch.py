@@ -967,15 +967,11 @@ class Trainer:
         save_and_sample_every = 1000,
         num_samples = 25,
         results_folder = './results',
-        amp = False,
+        amp = True,
         mixed_precision_type = 'fp16',
         split_batches = True,
         convert_image_to = None,
-        calculate_fid = True,
-        inception_block_idx = 2048,
         max_grad_norm = 1.,
-        num_fid_samples = 50000,
-        save_best_and_latest_only = False
     ):
         super().__init__()
 
@@ -1036,18 +1032,10 @@ class Trainer:
         self.results_folder.mkdir(exist_ok = True)
 
         # step counter state
-
         self.step = 0
 
         # prepare model, dataloader, optimizer with accelerator
-
         self.model, self.opt = self.accelerator.prepare(self.model, self.opt)
-
-        if save_best_and_latest_only:
-            assert calculate_fid, "`calculate_fid` must be True to provide a means for model evaluation for `save_best_and_latest_only`."
-            self.best_fid = 1e10 # infinite
-
-        self.save_best_and_latest_only = save_best_and_latest_only
 
     @property
     def device(self):
@@ -1124,7 +1112,7 @@ class Trainer:
                             cond_img, target_image, _, _ = next(self.dl)
                             cond_img = cond_img.to(device)
                             all_images_list = list(map(lambda n: self.ema.ema_model.sample(cond_img, batch_size=n), batches))
-                        cond_img_list = torch.chunk(cond_img, 9, dim=1)
+                        cond_img_list = torch.chunk(cond_img, 3, dim=1)
                         all_images_list.extend(cond_img_list)
                         all_images_list.append(target_image)
                         all_images = torch.cat(all_images_list, dim = 0)
