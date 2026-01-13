@@ -2,7 +2,7 @@
 
 > Official PyTorch implementation of the paper  
 > **"Cascaded Diffusion Model and Segment Anything Model for Medical Image Synthesis via Uncertainty-Guided Prompt Generation and Multi-Level Prompt Interaction"**  
-> (*IPMI 2025, Submitted to Medical Image Analysis*)
+> (*IPMI 2025*)
 
 ---
 ## 🚧 Repository Update in Progress 🚧  
